@@ -1,0 +1,46 @@
+Development Roadmap
+This is our master plan to complete the application. We have officially completed Phase 1 and are stepping into Phase 2.
+
+Phase 1: Architecture & State (Completed ✅)
+
+Initialize React + Vite + Tailwind repository.
+
+Define global constants and Enumerations (Transaction Types, Statuses).
+
+Create pure utility functions for calculations (Equally, Percent, Installment math) and ID generation.
+
+Setup React Context LoanProvider synced to localStorage for complete CRUD operations.
+
+Phase 2: Core Entities (Next Steps)
+
+People & Groups Layout: Create the layout structure for the PeopleGroups.jsx page.
+
+Contacts Component: Build a UI to add/edit individual people.
+
+Groups Component: Build a UI to create a Group, select multiple people to add to it, and manage group members.
+
+Phase 3: Entry Management
+
+Create Entry Form: Integrate CreateEntry.jsx (created above) into the router.
+
+All Records Page: Build a responsive table/list view in AllRecords.jsx to display all entries, complete with status badges and filtering (by active/paid).
+
+Phase 4: Dashboard & Entry Details
+
+Entry Overview: Build EntryDetails.jsx to show the core details of a selected entry (borrower, remaining balance, reference ID).
+
+Payment History Table: Create a sub-component mapping the payments array within the entry.
+
+Add Payment Modal: Build a modal that accepts Payment Date, Amount, Payee, and optional Proof/Notes, which automatically recalculates the remaining loan balance upon submission.
+
+Phase 5: Advanced Sub-views (Conditional)
+
+Installment Tracker View: If INSTALLMENT_EXPENSE, display a graphical progress bar and the "Skip Term" / "Add Payment" action buttons.
+
+Payment Allocation View: If GROUP_EXPENSE, build the interface displaying the quick actions ("Divide Equally", "Divide by Percent", "Divide by Amount") and list the breakdown per person.
+
+Phase 6: Final Polish
+
+Homepage Dashboard: Build the Home.jsx page with high-level metrics (e.g., "Total Owed to Me", "Total I Owe", "Upcoming Installments").
+
+UI/UX Refinements: Ensure all inputs have proper validation, polish Tailwind styling, and confirm mobile responsiveness.
