@@ -119,6 +119,22 @@ export default function CreateEntry() {
             <input type="date" name="dateBorrowed" value={formData.dateBorrowed} onChange={handleBaseChange} className="mt-1 w-full border rounded-md p-2" />
           </div>
         </div>
+        {/* SPEC FIX: Missing Optional Fields & BLOB */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Description (Optional)</label>
+            <input name="description" value={formData.description} onChange={handleBaseChange} className="mt-1 w-full border rounded-md p-2" placeholder="Item or reason for loan" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Notes (Optional)</label>
+            <input name="notes" value={formData.notes} onChange={handleBaseChange} className="mt-1 w-full border rounded-md p-2" placeholder="Any additional constraints" />
+          </div>
+          <div className="md:col-span-2">
+            <label className="block text-sm font-medium text-gray-700">Receipt / Proof of Loan (Optional)</label>
+            <input type="file" accept="image/*" className="mt-1 w-full border rounded-md p-2 bg-white" />
+            <p className="text-xs text-gray-500 mt-1">Upload photos showing the loan (e.g., receipts, contract)</p>
+          </div>
+        </div>
 
         {/* Entities (Borrower / Lender) */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-t pt-4">

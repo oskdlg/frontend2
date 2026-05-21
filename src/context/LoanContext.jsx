@@ -115,3 +115,30 @@ export const useLoanData = () => {
   }
   return context;
 };
+
+const addPayment = (entryId, newPayment) => {
+    setData((prev) => {
+      return {
+        ...prev,
+        entries: prev.entries.map((entry) => {
+          if (entry.id !== entryId) return entry;
+
+          const updatedPayments = [...(entry.payments || []), newPayment];
+          const remaining = calculateRemainingBalance(entry.amountBorrowed, updatedPayments);
+          
+          let newStatus = entry.status;
+          let dateFullyPaid = entry.dateFullyPaid; // Keep existing if present
+
+          if (remaining === 0) {
+            newStatus = 'PAID';
+            // SPEC FIX: Record the date fully paid when balance hits 0
+            dateFullyPaid = new Date().toISOString().split('T')[0]; 
+          } else if (remaining < entry.amountBorrowed) {
+            newStatus = 'PARTIALLY PAID';
+          }
+
+          return { ...entry, payments: updatedPayments, amountRemaining: remaining, status: newStatus, dateFullyPaid };
+        })
+      };
+    });
+  };
