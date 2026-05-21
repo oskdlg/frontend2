@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useLoanData } from '../context/LoanContext';
 import { Wallet, TrendingUp, Users, ArrowRight, Activity } from 'lucide-react';
 import { PAYMENT_STATUS } from '../constants/enums';
+import logo from '../assets/MoneyCheck$Logo.png';
 
 export default function Home() {
   const { entries, people, groups } = useLoanData();
@@ -29,9 +30,12 @@ export default function Home() {
       
       {/* Welcome Banner */}
       <div className="bg-linear-to-t from-emerald-800 to-teal-950 rounded-2xl p-8 text-black shadow-lg flex flex-col md:flex-row justify-between items-center">
-        <div>
-          <h1 className="text-black text-3xl font-bold mb-2 ">MoneyChecks (gawa me logo mmya sa Canva)</h1>
-          <p className="text-emerald-100">Your one-site-does-all solution to checking and tracking your transactions. </p>
+        <div className="flex items-center gap-3 mb-2">
+          <img
+            src={logo}
+            alt='MoneyCheck$ logo'
+            />
+          <p className="text-emerald-100 w-auto flex items-center">Checking your transactions made comfy and easy.  </p>
         </div>
         <div className="mt-6 md:mt-0 space-x-4">
           <Link to="/create" className="bg-white text-olive-950 font-bold px-6 py-3 rounded-lg shadow hover:bg-blue-50 transition inline-flex items-center">
@@ -89,10 +93,10 @@ export default function Home() {
         <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-100 p-6">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
-              <Activity size={20} className="text-blue-600"/> 
+              <Activity size={20} className="text-green-600"/> 
               Recent Entries
             </h2>
-            <Link to="/records" className="text-sm text-blue-600 hover:underline flex items-center">
+            <Link to="/records" className="text-sm text-green-800 hover:underline flex items-center">
               View All <ArrowRight size={16} className="ml-1"/>
             </Link>
           </div>
@@ -133,17 +137,17 @@ export default function Home() {
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 h-fit">
           <h2 className="text-xl font-bold text-gray-800 mb-6">Quick Actions</h2>
           <div className="space-y-3">
-            <Link to="/create" className="flex items-center justify-between p-4 bg-gray-50 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition group">
+            <Link to="/create" className="flex items-center justify-between p-4 bg-gray-50 hover:bg-blue-50 hover:text-emerald-700 rounded-lg transition group">
               <span className="font-medium">Create New Loan</span>
-              <ArrowRight size={18} className="text-gray-400 group-hover:text-blue-600" />
+              <ArrowRight size={18} className="text-gray-700 group-hover:text-emerald-600" />
             </Link>
-            <Link to="/people" className="flex items-center justify-between p-4 bg-gray-50 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition group">
+            <Link to="/people" className="flex items-center justify-between p-4 bg-gray-50 hover:bg-blue-50 hover:text-emerald-700 rounded-lg transition group">
               <span className="font-medium">Manage People & Groups</span>
-              <ArrowRight size={18} className="text-gray-400 group-hover:text-blue-600" />
+              <ArrowRight size={18} className="text-gray-700 group-hover:text-emerald-600" />
             </Link>
-            <Link to="/records" className="flex items-center justify-between p-4 bg-gray-50 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition group">
+            <Link to="/records" className="flex items-center justify-between p-4 bg-gray-50 hover:bg-blue-50 hover:text-emerald-700 rounded-lg transition group">
               <span className="font-medium">View Payment History</span>
-              <ArrowRight size={18} className="text-gray-400 group-hover:text-blue-600" />
+              <ArrowRight size={18} className="text-gray-700 group-hover:text-emerald-600" />
             </Link>
           </div>
         </div>

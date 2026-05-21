@@ -65,13 +65,13 @@ export default function PeopleGroups() {
       {/* Tabs */}
       <div className="flex border-b mb-6">
         <button
-          className={`py-2 px-6 font-semibold transition-colors ${activeTab === 'people' ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-500 hover:text-blue-500'}`}
+          className={`py-2 px-6 font-semibold transition-colors ${activeTab === 'people' ? 'border-b-2 border-white text-blue-600' : 'text-gray-500 hover:text-blue-500'}`}
           onClick={() => setActiveTab('people')}
         >
           Individuals
         </button>
         <button
-          className={`py-2 px-6 font-semibold transition-colors ${activeTab === 'groups' ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-500 hover:text-blue-500'}`}
+          className={`py-2 px-6 font-semibold transition-colors ${activeTab === 'groups' ? 'border-b-2 border-white text-blue-600' : 'text-gray-500 hover:text-blue-500'}`}
           onClick={() => setActiveTab('groups')}
         >
           Groups

@@ -1,20 +1,24 @@
 // src/pages/EntryDetails.jsx
-
-import { TRANSACTION_TYPES } from '../constants/enums';
-import InstallmentTracker from '../components/entries/InstallmentTracker';
-import GroupAllocation from '../components/entries/GroupAllocation';
-
 import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useLoanData } from '../context/LoanContext';
 import { v4 as uuidv4 } from 'uuid';
+import { TRANSACTION_TYPES, INSTALLMENT_STATUS } from '../constants/enums';
+import InstallmentTracker from '../components/entries/InstallmentTracker';
+import GroupAllocation from '../components/entries/GroupAllocation';
 
 export default function EntryDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { entries, addPayment, deleteEntry } = useLoanData();
+  const { entries, addPayment, deleteEntry, updateEntry } = useLoanData();
   
   const [showPaymentForm, setShowPaymentForm] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  
+  // Find the current entry
+  const entry = entries.find(e => e.id === id);
+
+  // States for forms
   const [paymentData, setPaymentData] = useState({
     paymentDate: new Date().toISOString().split('T')[0],
     paymentAmount: '',
@@ -22,8 +26,12 @@ export default function EntryDetails() {
     notes: ''
   });
 
-  // Find the current entry
-  const entry = entries.find(e => e.id === id);
+  // Load entry data into edit form state
+  const [editData, setEditData] = useState({
+    entryName: entry?.entryName || '',
+    description: entry?.description || '',
+    notes: entry?.notes || ''
+  });
 
   if (!entry) {
     return (
@@ -34,9 +42,21 @@ export default function EntryDetails() {
     );
   }
 
+  // --- Handlers ---
+
+  const handleEditSubmit = (e) => {
+    e.preventDefault();
+    updateEntry({
+      ...entry,
+      entryName: editData.entryName,
+      description: editData.description,
+      notes: editData.notes
+    });
+    setIsEditing(false);
+  };
+
   const handlePaymentSubmit = (e) => {
     e.preventDefault();
-    
     const amount = parseFloat(paymentData.paymentAmount);
     if (amount <= 0 || amount > entry.amountRemaining) {
       alert(`Invalid amount. Must be greater than 0 and less than or equal to ${entry.amountRemaining}`);
@@ -47,7 +67,7 @@ export default function EntryDetails() {
       id: uuidv4(),
       paymentDate: paymentData.paymentDate,
       paymentAmount: amount,
-      payee: paymentData.payee || entry.borrowerId, // Default to borrower if blank
+      payee: paymentData.payee || entry.borrowerId,
       notes: paymentData.notes
     };
 
@@ -68,23 +88,54 @@ export default function EntryDetails() {
       {/* Header Actions */}
       <div className="flex justify-between items-center">
         <Link to="/records" className="text-gray-500 hover:text-blue-600 transition">&larr; Back to Records</Link>
-        <button onClick={handleDelete} className="text-red-600 hover:text-red-800 text-sm font-semibold">Delete Entry</button>
+        <div className="space-x-4">
+          <button onClick={() => setIsEditing(!isEditing)} className="text-blue-600 hover:text-blue-800 text-sm font-semibold">
+            {isEditing ? 'Cancel Edit' : 'Edit Details'}
+          </button>
+          <button onClick={handleDelete} className="text-red-600 hover:text-red-800 text-sm font-semibold">Delete Entry</button>
+        </div>
       </div>
 
-      {/* Core Details Card */}
+      {/* Core Details Card OR Edit Form */}
       <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-        <div className="flex justify-between items-start mb-6 border-b pb-4">
-          <div>
-            <h2 className="text-3xl font-bold text-gray-800">{entry.entryName}</h2>
-            <p className="text-sm text-gray-500 font-mono mt-1">Ref: {entry.referenceId}</p>
+        {isEditing ? (
+          <form onSubmit={handleEditSubmit} className="space-y-4 border-b pb-6 mb-6">
+            <h3 className="text-xl font-bold text-gray-800">Edit Entry Details</h3>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Entry Name *</label>
+              <input required value={editData.entryName} onChange={(e) => setEditData({...editData, entryName: e.target.value})} className="mt-1 w-full border rounded p-2 focus:ring-blue-500 focus:border-blue-500" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Description</label>
+              <input value={editData.description} onChange={(e) => setEditData({...editData, description: e.target.value})} className="mt-1 w-full border rounded p-2 focus:ring-blue-500 focus:border-blue-500" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">Notes</label>
+              <textarea value={editData.notes} onChange={(e) => setEditData({...editData, notes: e.target.value})} className="mt-1 w-full border rounded p-2 focus:ring-blue-500 focus:border-blue-500" rows="3" />
+            </div>
+            <button type="submit" className="bg-blue-600 text-white font-bold py-2 px-6 rounded hover:bg-blue-700 transition">
+              Save Changes
+            </button>
+          </form>
+        ) : (
+          <div className="flex justify-between items-start mb-6 border-b pb-4">
+            <div>
+              <h2 className="text-3xl font-bold text-gray-800">{entry.entryName}</h2>
+              <p className="text-sm text-gray-500 font-mono mt-1">Ref: {entry.referenceId}</p>
+              {entry.description && <p className="text-gray-600 mt-2">{entry.description}</p>}
+              {entry.notes && <p className="text-sm text-gray-500 italic mt-1">Notes: {entry.notes}</p>}
+            </div>
+            <div className="text-right">
+              <span className="px-3 py-1 bg-gray-100 text-gray-800 text-sm font-bold rounded-full uppercase tracking-wide">
+                {entry.status}
+              </span>
+              <p className="text-sm text-gray-500 mt-2">{entry.transactionType}</p>
+              {entry.dateFullyPaid && (
+                <p className="text-xs text-green-600 font-bold mt-1">Paid on: {entry.dateFullyPaid}</p>
+              )}
+            </div>
           </div>
-          <div className="text-right">
-            <span className="px-3 py-1 bg-gray-100 text-gray-800 text-sm font-bold rounded-full uppercase tracking-wide">
-              {entry.status}
-            </span>
-            <p className="text-sm text-gray-500 mt-2">{entry.transactionType}</p>
-          </div>
-        </div>
+        )}
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-2">
           <div>
@@ -110,10 +161,7 @@ export default function EntryDetails() {
 
       {/* CONDITIONAL: Installment Tracker */}
       {entry.transactionType === TRANSACTION_TYPES.INSTALLMENT_EXPENSE && (
-        <InstallmentTracker 
-          entry={entry} 
-          onAddPayment={() => setShowPaymentForm(true)} 
-        />
+        <InstallmentTracker entry={entry} onAddPayment={() => setShowPaymentForm(true)} />
       )}
 
       {/* CONDITIONAL: Group Allocation */}
@@ -151,22 +199,16 @@ export default function EntryDetails() {
                 <label className="block text-sm font-medium text-gray-700">Payee Name</label>
                 <input type="text" placeholder={entry.borrowerId} value={paymentData.payee} onChange={(e) => setPaymentData({...paymentData, payee: e.target.value})} className="mt-1 w-full border rounded p-2" />
               </div>
-              {/* Inside the payment form grid */}
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700">Notes (Optional)</label>
                 <input type="text" value={paymentData.notes} onChange={(e) => setPaymentData({...paymentData, notes: e.target.value})} className="mt-1 w-full border rounded p-2" />
               </div>
               <div>
-                {/* SPEC FIX: Payment Proof BLOB */}
                 <label className="block text-sm font-medium text-gray-700">Proof of Payment (Optional)</label>
                 <input type="file" accept="image/*" className="mt-1 w-full border rounded p-2 bg-white" />
               </div>
-            </div>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Notes (Optional)</label>
-              <input type="text" value={paymentData.notes} onChange={(e) => setPaymentData({...paymentData, notes: e.target.value})} className="mt-1 w-full border rounded p-2" />
             </div>
             <button type="submit" className="bg-green-600 text-white font-bold py-2 px-6 rounded hover:bg-green-700 transition w-full md:w-auto">
               Save Payment
