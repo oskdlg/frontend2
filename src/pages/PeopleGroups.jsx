@@ -65,13 +65,13 @@ export default function PeopleGroups() {
       {/* Tabs */}
       <div className="flex border-b mb-6">
         <button
-          className={`py-2 px-6 font-semibold transition-colors ${activeTab === 'people' ? 'border-b-2 border-white text-blue-600' : 'text-gray-500 hover:text-blue-500'}`}
+          className={`py-2 px-6 font-semibold transition-colors ${activeTab === 'people' ? 'border-b-2 border-white text-emerald-600' : 'text-gray-500 hover:text-emerald-500'}`}
           onClick={() => setActiveTab('people')}
         >
           Individuals
         </button>
         <button
-          className={`py-2 px-6 font-semibold transition-colors ${activeTab === 'groups' ? 'border-b-2 border-white text-blue-600' : 'text-gray-500 hover:text-blue-500'}`}
+          className={`py-2 px-6 font-semibold transition-colors ${activeTab === 'groups' ? 'border-b-2 border-white text-emerald-600' : 'text-gray-500 hover:text-emerald-500'}`}
           onClick={() => setActiveTab('groups')}
         >
           Groups
@@ -83,7 +83,7 @@ export default function PeopleGroups() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Add Person Form */}
           <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-            <h3 className="text-lg font-bold mb-4">Add New Person</h3>
+            <h3 className="text-mauve-800 font-bold mb-4">Add New Person</h3>
             <form onSubmit={handleAddPerson} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700">Full Name</label>
@@ -92,11 +92,11 @@ export default function PeopleGroups() {
                   required
                   value={newPersonName} 
                   onChange={(e) => setNewPersonName(e.target.value)} 
-                  className="mt-1 w-full border rounded-md p-2 focus:ring-blue-500 focus:border-blue-500" 
-                  placeholder="e.g. John Doe" 
+                  className="mt-1 w-full border rounded-md p-2 focus:ring-emerald-500 focus:border-emerald-500" 
+                  placeholder="e.g. Eugene Krabs" 
                 />
               </div>
-              <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full transition">
+              <button type="submit" className="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-700 w-full transition">
                 Add Person
               </button>
             </form>
@@ -104,7 +104,7 @@ export default function PeopleGroups() {
 
           {/* People List */}
           <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-            <h3 className="text-lg font-bold mb-4">Saved Contacts ({people.length})</h3>
+            <h3 className="text-mauve-800 font-bold mb-4">Saved Contacts ({people.length})</h3>
             {people.length === 0 ? (
               <p className="text-gray-500 italic">No contacts added yet.</p>
             ) : (
@@ -125,7 +125,7 @@ export default function PeopleGroups() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Add Group Form */}
           <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-            <h3 className="text-lg font-bold mb-4">Create New Group</h3>
+            <h3 className="text-mauve-800 font-bold mb-4">Create New Group</h3>
             <form onSubmit={handleAddGroup} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700">Group Name</label>
@@ -134,8 +134,8 @@ export default function PeopleGroups() {
                   required
                   value={newGroupName} 
                   onChange={(e) => setNewGroupName(e.target.value)} 
-                  className="mt-1 w-full border rounded-md p-2 focus:ring-blue-500 focus:border-blue-500" 
-                  placeholder="e.g. Friday Night Dinner Crew" 
+                  className="mt-1 w-full border rounded-md p-2 focus:ring-emerald-500 focus:border-emerald-500" 
+                  placeholder="e.g. CMSC121 Support Group" 
                 />
               </div>
               
@@ -151,7 +151,7 @@ export default function PeopleGroups() {
                           type="checkbox" 
                           checked={selectedMembers.includes(person.id)}
                           onChange={() => handleToggleMember(person.id)}
-                          className="rounded text-blue-600 focus:ring-blue-500 h-4 w-4"
+                          className="rounded text-emerald-600 focus:ring-emerald-500 h-4 w-4"
                         />
                         <span className="text-gray-700">{person.name}</span>
                       </label>
@@ -163,7 +163,7 @@ export default function PeopleGroups() {
               <button 
                 type="submit" 
                 disabled={people.length === 0}
-                className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full transition disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-700 w-full transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Create Group
               </button>
@@ -172,15 +172,15 @@ export default function PeopleGroups() {
 
           {/* Groups List */}
           <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-            <h3 className="text-lg font-bold mb-4">Saved Groups ({groups.length})</h3>
+            <h3 className="text-mauve-800 font-bold mb-4">Saved Groups ({groups.length})</h3>
             {groups.length === 0 ? (
-              <p className="text-gray-500 italic">No groups created yet.</p>
+              <p className="text-black italic">No groups created yet.</p>
             ) : (
               <ul className="space-y-4 max-h-96 overflow-y-auto">
                 {groups.map((group) => (
                   <li key={group.id} className="p-4 bg-gray-50 rounded border border-gray-200">
-                    <div className="font-bold text-gray-800 text-lg">{group.name}</div>
-                    <div className="text-sm text-gray-500 mt-1">
+                    <div className="font-bold text-black mauve-800">{group.name}</div>
+                    <div className="text-sm text-black mt-1">
                       {group.members.length} member{group.members.length !== 1 && 's'}: 
                       {' ' + group.members.map(m => m.name).join(', ')}
                     </div>
