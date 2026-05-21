@@ -26,7 +26,7 @@ export default function AllRecords() {
         <h2 className="text-3xl font-bold text-gray-800">All Financial Records</h2>
         <Link 
           to="/create" 
-          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+          className="bg-emerald-800 text-white px-4 py-2 rounded-md hover:bg-green-900 transition"
         >
           + New Entry
         </Link>
@@ -58,7 +58,7 @@ export default function AllRecords() {
                   <td className="p-4 font-medium text-gray-800">{entry.entryName}</td>
                   <td className="p-4 text-sm text-gray-600">{entry.transactionType}</td>
                   <td className="p-4 text-sm text-gray-800">
-                    {/* Depending on how you stored borrowerId, this displays the ID or mapped name */}
+                    {/* Displays the ID or mapped name depending on how borrowerid was stored*/}
                     {entry.borrowerId}
                   </td>
                   <td className="p-4 text-sm text-gray-800 font-semibold">
@@ -73,7 +73,7 @@ export default function AllRecords() {
                   <td className="p-4">
                     <Link 
                       to={`/entry/${entry.id}`} 
-                      className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                      className="text-emerald-500 hover:text-green-900 text-sm font-medium"
                     >
                       View Details &rarr;
                     </Link>

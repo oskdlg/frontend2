@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { LoanProvider } from './context/LoanContext';
 import logo from './assets/MoneyCheck$Logo.png';
 
-// import pages anf components
+// import pages and components
 import Home from './pages/Home'; 
 import PeopleGroups from './pages/PeopleGroups';
 import CreateEntry from './components/entries/CreateEntry';

@@ -38,7 +38,7 @@ export default function InstallmentTracker({ entry, onAddPayment }) {
           </button>
           <button 
             onClick={onAddPayment}
-            className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition text-sm font-semibold"
+            className="bg-emerald-600 text-white px-3 py-1 rounded hover:bg-emerald-700 transition text-sm font-semibold"
           >
             + Add Payment
           </button>
@@ -49,11 +49,11 @@ export default function InstallmentTracker({ entry, onAddPayment }) {
       <div className="mb-6">
         <div className="flex justify-between text-sm mb-1">
           <span className="font-semibold text-gray-700">Payment Progress</span>
-          <span className="font-bold text-blue-600">{progress}% Paid</span>
+          <span className="font-bold text-emerald-600">{progress}% Paid</span>
         </div>
         <div className="w-full bg-gray-200 rounded-full h-3">
           <div 
-            className="bg-blue-600 h-3 rounded-full transition-all duration-500" 
+            className="bg-emerald-600 h-3 rounded-full transition-all duration-500" 
             style={{ width: `${progress}%` }}
           ></div>
         </div>
@@ -79,7 +79,7 @@ export default function InstallmentTracker({ entry, onAddPayment }) {
         </div>
         <div>
           <p className="text-xs text-gray-500 uppercase tracking-wide">Amt per Term</p>
-          <p className="font-bold text-blue-700">₱ {details.amountPerTerm?.toLocaleString(undefined, { minimumFractionDigits: 2 })}</p>
+          <p className="font-bold text-emerald-700">₱ {details.amountPerTerm?.toLocaleString(undefined, { minimumFractionDigits: 2 })}</p>
         </div>
       </div>
     </div>

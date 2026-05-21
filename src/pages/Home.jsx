@@ -11,10 +11,10 @@ export default function Home() {
 
   // --- Calculate Dashboard Metrics ---
   
-  // 1. Total Outstanding (Money currently owed to you)
+  // 1. Total Outstanding (Money owed to me)
   const totalOutstanding = entries.reduce((sum, entry) => sum + entry.amountRemaining, 0);
   
-  // 2. Total Collected (Money that has been paid back)
+  // 2. Total Collected (Money paid back)
   const totalCollected = entries.reduce((sum, entry) => {
     return sum + (entry.amountBorrowed - entry.amountRemaining);
   }, 0);
@@ -86,7 +86,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Bottom Section: Recent Activity & Quick Links */}
+      {/* Bottom Section - Recent Activity & Quick Links */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
         {/* Recent Entries */}
@@ -151,7 +151,6 @@ export default function Home() {
             </Link>
           </div>
         </div>
-
       </div>
     </div>
   );

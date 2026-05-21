@@ -15,7 +15,7 @@ export default function EntryDetails() {
   const [showPaymentForm, setShowPaymentForm] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   
-  // Find the current entry
+  // Find current entry
   const entry = entries.find(e => e.id === id);
 
   // States for forms
@@ -37,7 +37,7 @@ export default function EntryDetails() {
     return (
       <div className="max-w-4xl mx-auto p-6 mt-8 text-center">
         <h2 className="text-2xl font-bold text-gray-800">Entry Not Found</h2>
-        <Link to="/records" className="text-blue-600 mt-4 inline-block hover:underline">&larr; Back to Records</Link>
+        <Link to="/records" className="text-emerald-600 mt-4 inline-block hover:underline">&larr; Back to Records</Link>
       </div>
     );
   }
@@ -87,9 +87,9 @@ export default function EntryDetails() {
     <div className="max-w-5xl mx-auto p-6 mt-8 space-y-6">
       {/* Header Actions */}
       <div className="flex justify-between items-center">
-        <Link to="/records" className="text-gray-500 hover:text-blue-600 transition">&larr; Back to Records</Link>
+        <Link to="/records" className="text-gray-500 hover:text-emerald-500 transition">&larr; Back to Records</Link>
         <div className="space-x-4">
-          <button onClick={() => setIsEditing(!isEditing)} className="text-blue-600 hover:text-blue-800 text-sm font-semibold">
+          <button onClick={() => setIsEditing(!isEditing)} className="text-emerald-600 hover:text-white text-sm font-semibold">
             {isEditing ? 'Cancel Edit' : 'Edit Details'}
           </button>
           <button onClick={handleDelete} className="text-red-600 hover:text-red-800 text-sm font-semibold">Delete Entry</button>
@@ -103,17 +103,17 @@ export default function EntryDetails() {
             <h3 className="text-xl font-bold text-gray-800">Edit Entry Details</h3>
             <div>
               <label className="block text-sm font-medium text-gray-700">Entry Name *</label>
-              <input required value={editData.entryName} onChange={(e) => setEditData({...editData, entryName: e.target.value})} className="mt-1 w-full border rounded p-2 focus:ring-blue-500 focus:border-blue-500" />
+              <input required value={editData.entryName} onChange={(e) => setEditData({...editData, entryName: e.target.value})} className="mt-1 w-full border rounded p-2 focus:ring-emerald-500 focus:border-emerald-500" />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700">Description</label>
-              <input value={editData.description} onChange={(e) => setEditData({...editData, description: e.target.value})} className="mt-1 w-full border rounded p-2 focus:ring-blue-500 focus:border-blue-500" />
+              <input value={editData.description} onChange={(e) => setEditData({...editData, description: e.target.value})} className="mt-1 w-full border rounded p-2 focus:ring-emerald-500 focus:border-emerald-500" />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700">Notes</label>
-              <textarea value={editData.notes} onChange={(e) => setEditData({...editData, notes: e.target.value})} className="mt-1 w-full border rounded p-2 focus:ring-blue-500 focus:border-blue-500" rows="3" />
+              <textarea value={editData.notes} onChange={(e) => setEditData({...editData, notes: e.target.value})} className="mt-1 w-full border rounded p-2 focus:ring-emerald-500 focus:border-emerald-500" rows="3" />
             </div>
-            <button type="submit" className="bg-blue-600 text-white font-bold py-2 px-6 rounded hover:bg-blue-700 transition">
+            <button type="submit" className="bg-emerald-600 text-white font-bold py-2 px-6 rounded hover:bg-emerald-700 transition">
               Save Changes
             </button>
           </form>
@@ -176,7 +176,7 @@ export default function EntryDetails() {
           {entry.amountRemaining > 0 && (
             <button 
               onClick={() => setShowPaymentForm(!showPaymentForm)}
-              className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-sm"
+              className="bg-emerald-600 text-white px-4 py-2 rounded-md hover:bg-emerald-700 transition text-sm"
             >
               {showPaymentForm ? 'Cancel Payment' : '+ Log Payment'}
             </button>
@@ -185,7 +185,7 @@ export default function EntryDetails() {
 
         {/* Payment Form (Conditional) */}
         {showPaymentForm && (
-          <form onSubmit={handlePaymentSubmit} className="bg-blue-50 p-4 rounded-md border border-blue-100 mb-6 space-y-4">
+          <form onSubmit={handlePaymentSubmit} className="bg-green-50 p-4 rounded-md border border-emerald-100 mb-6 space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700">Date</label>
